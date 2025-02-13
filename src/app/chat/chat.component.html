@@ -1,0 +1,56 @@
+<!-- src/app/chat/chat.component.html -->
+
+@if(showModal){
+  <div class="modal" [class.active]="showModal">
+    <div class="modal-content">
+      <h2><b>Unirse a una sala</b></h2>
+      <div class="input-group">
+        <input type="text" [(ngModel)]="roomIdInput" placeholder="Ingresa el ID de la sala" (keyup.enter)="setup()">
+        <input type="text" [(ngModel)]="name" placeholder="Crea un nombre" (keyup.enter)="setup()">
+      </div>
+      <div class="modal-buttons">
+        <button class="btn-cancel" (click)="showModal=false">Cancelar</button>
+        <button class="btn-join" [disabled]="!roomIdInput&&!name" (click)="setup()">Unirse</button>
+      </div>
+    </div>
+  </div>
+} @else {
+  @if(showModalName){
+    <div class="modal" [class.active]="showModalName">
+      <div class="modal-content">
+        <h2><b>Nombre de usuario</b></h2>
+        <div class="input-group">
+          <input type="text" [(ngModel)]="name" placeholder="Ingresa un nombre">
+        </div>
+        <div class="modal-buttons">
+          <button class="btn-join" [disabled]="!name" (click)="showModalName=false">Continuar</button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="chat-container">
+      <div class="chat-header">
+        <h2><b>CMessenger</b></h2>
+        <span> {{ roomId }} </span>
+        <button class="copy-button" (click)="copyRoomId()" title="Copiar ID de sala">
+          <i class="fas fa-copy"></i>
+        </button>
+      </div>
+      <div class="messages">
+        <div *ngFor="let message of chatService.messagesSignal()"
+            class="message"
+            [class.sent]="message?.isSent"
+            [class.received]="!message?.isSent">
+          @if(message?.name){
+            <p><b><i>&lt;{{ message?.name }}&gt;</i></b></p>
+          }
+          <p>{{ message.text }}</p>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" [(ngModel)]="newMessage" placeholder="Escribe tu mensaje..." />
+        <button (click)="sendMessage()">Enviar</button>
+      </div>
+    </div>
+  }
+}
