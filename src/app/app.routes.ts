@@ -23,5 +23,6 @@ export const routes: Routes = [
     providers: [
       importProvidersFrom(FormsModule), // Importar los proveedores de FormsModule
     ]
-  }
+  },
+  { path: '**', redirectTo: '/chat' }
 ];
