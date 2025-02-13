@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  standalone: false,
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
