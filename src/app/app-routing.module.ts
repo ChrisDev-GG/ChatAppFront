@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
   imports: [
       RouterModule.forRoot([
           { path: 'chat', loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule) },
+          { path: 'chat/:admin', loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule) },
           { path: '**', redirectTo: '/chat' },
       ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })
   ],
